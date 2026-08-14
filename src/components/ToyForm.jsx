@@ -16,11 +16,16 @@ function ToyForm({ onSubmit }) {
 
   function HandleSubmit(e) {
     e.preventDefault();
+
+    console.log("Handle Submit:", formData);
     onSubmit(formData);
+
+    console.log("AFTER ONSUBMIT");
 
     setFormData({
       name: "",
       image: "",
+      likes: 0,
     });
   }
   return (

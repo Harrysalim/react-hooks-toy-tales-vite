@@ -20,7 +20,16 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         console.log("GET DATA:", data);
+
         setToyList(data);
+
+        {
+          /*  setToyList((prev) => {
+          const fetchedIDs = new Set(data.map((toy) => toy.id));
+
+          return prev.filter((toy) => !fetchedIDs.has(toy.id));
+        }); */
+        }
       });
   }, []);
 
@@ -65,6 +74,7 @@ function App() {
   }
 
   async function addToy(formData) {
+    console.log("ADD TOY CALLED:", formData);
     const response = await fetch("http://localhost:3001/toys", {
       method: "POST",
       headers: {
