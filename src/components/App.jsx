@@ -20,12 +20,35 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         console.log("GET DATA:", data);
-        setToyList((prev) => {
-          const fetchedToyIds = new Set(data.map((toy) => toy.id));
-          return [...prev, prev.filter((toy) => !fetchedToyIds.has(toy.id))];
-        });
+        setToyList(data);
       });
   }, []);
+
+  async function HandleLikes(id) {
+    const toy = toyList.find((toy) => toy.id === id);
+
+    const response = await fetch(`http://localhost:3001/toys/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        likes: toy.likes + 1,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Unable to add likes");
+    }
+
+    const updatedToy = await response.json();
+
+    console.log("PATCH:", updatedToy);
+
+    setToyList((prev) =>
+      prev.map((toy) => (toy.id === updatedToy.id ? updatedToy : toy)),
+    );
+  }
 
   async function addToy(formData) {
     const response = await fetch("http://localhost:3001/toys", {
@@ -56,7 +79,11 @@ function App() {
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
-      <ToyContainer toyList={toyList} />
+      <ToyContainer
+        toyList={toyList}
+        setToyList={setToyList}
+        onLike={HandleLikes}
+      />
 
       {/*{toyList.map((toy) => {
         console.log("TOYCARD FOR:", toy.name);
