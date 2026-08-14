@@ -16,22 +16,27 @@ function App() {
   }
 
   useEffect(() => {
+    async function fetchToys() {
+      const response = await fetch("http://localhost:3001/toys");
+      const data = await response.json();
+
+      console.log("GET DATA:", data);
+
+      setToyList(data);
+    }
+
+    fetchToys();
+  }, []);
+
+  /*useEffect(() => {
     fetch("http://localhost:3001/toys")
       .then((response) => response.json())
       .then((data) => {
         console.log("GET DATA:", data);
 
         setToyList(data);
-
-        {
-          /*  setToyList((prev) => {
-          const fetchedIDs = new Set(data.map((toy) => toy.id));
-
-          return prev.filter((toy) => !fetchedIDs.has(toy.id));
-        }); */
-        }
       });
-  }, []);
+  }, []); */
 
   async function HandleDelete(id) {
     const toy = toyList.find((toy) => toy.id === id);

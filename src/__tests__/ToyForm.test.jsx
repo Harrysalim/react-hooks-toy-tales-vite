@@ -6,7 +6,9 @@ import "@testing-library/jest-dom";
 describe("ToyForm Submission", () => {
   it("submits a new toy and displays it", async () => {
     global.setFetchResponse(global.baseToys);
-    const { getByPlaceholderText, getByText, findByText } = render(<App />);
+    const { getByPlaceholderText, getByText, findByText, container } = render(
+      <App />,
+    );
     const firstToy = {
       name: "First Toy",
       image: "new-toy.jpg",
