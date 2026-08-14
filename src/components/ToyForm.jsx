@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 
-function ToyForm() {
+function ToyForm({ onSubmit }) {
   const [formData, setFormData] = useState({
     name: "",
     image: "",
+    likes: 0,
   });
 
   function HandleChange(e) {
@@ -15,7 +16,7 @@ function ToyForm() {
 
   function HandleSubmit(e) {
     e.preventDefault();
-    setFormData(formData);
+    onSubmit(formData);
 
     setFormData({
       name: "",
