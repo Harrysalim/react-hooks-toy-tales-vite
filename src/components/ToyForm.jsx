@@ -1,13 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 
-function ToyForm() {
+function ToyForm({ onSubmit }) {
+  const [formData, setFormData] = useState({
+    name: "",
+    image: "",
+    likes: 0,
+  });
+
+  function HandleChange(e) {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  }
+
+  function HandleSubmit(e) {
+    e.preventDefault();
+    onSubmit(formData);
+
+    setFormData({
+      name: "",
+      image: "",
+    });
+  }
   return (
     <div className="container">
-      <form className="add-toy-form">
+      <form className="add-toy-form" onSubmit={HandleSubmit}>
         <h3>Create a toy!</h3>
         <input
           type="text"
           name="name"
+          value={formData.name}
+          onChange={HandleChange}
           placeholder="Enter a toy's name..."
           className="input-text"
         />
@@ -15,6 +39,8 @@ function ToyForm() {
         <input
           type="text"
           name="image"
+          value={formData.image}
+          onChange={HandleChange}
           placeholder="Enter a toy's image URL..."
           className="input-text"
         />
