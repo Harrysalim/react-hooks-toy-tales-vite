@@ -1,7 +1,7 @@
 import React from "react";
 import ToyCard from "./ToyCard";
 
-function ToyContainer({ toyList, setToyList, onLike }) {
+function ToyContainer({ toyList, setToyList, onLike, onDelete }) {
   return (
     <div id="toy-collection">
       {toyList.map((toy) => (
@@ -10,6 +10,7 @@ function ToyContainer({ toyList, setToyList, onLike }) {
           toy={toy}
           setToyList={setToyList}
           onLike={onLike}
+          onDelete={onDelete}
         />
       ))}
     </div>

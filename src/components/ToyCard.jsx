@@ -1,10 +1,14 @@
 import React from "react";
 
-function ToyCard({ toy, setToyList, onLike }) {
+function ToyCard({ toy, setToyList, onLike, onDelete }) {
   console.log("TOYCARD:", toy);
 
   function HandleLike() {
     onLike(toy.id);
+  }
+
+  function HandleDelete() {
+    onDelete(toy.id);
   }
 
   return (
@@ -15,7 +19,7 @@ function ToyCard({ toy, setToyList, onLike }) {
       <button id={toy.id} onClick={HandleLike} className="like-btn">
         Like {"<3"}
       </button>
-      <button id={toy.id} className="del-btn">
+      <button id={toy.id} onClick={HandleDelete} className="del-btn">
         Donate to GoodWill
       </button>
     </div>

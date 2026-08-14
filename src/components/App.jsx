@@ -24,6 +24,20 @@ function App() {
       });
   }, []);
 
+  async function HandleDelete(id) {
+    const toy = toyList.find((toy) => toy.id === id);
+
+    const response = await fetch(`http://localhost:3001/toys/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Unable to Delete Toy");
+    }
+
+    setToyList((prev) => prev.filter((toy) => toy.id !== id));
+  }
+
   async function HandleLikes(id) {
     const toy = toyList.find((toy) => toy.id === id);
 
@@ -83,6 +97,7 @@ function App() {
         toyList={toyList}
         setToyList={setToyList}
         onLike={HandleLikes}
+        onDelete={HandleDelete}
       />
 
       {/*{toyList.map((toy) => {
